@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import IsLogin from './IsLogin';
-import { nav } from 'framer-motion/client';
+import IsLogin from '../IsLogin';
+
 
 const userPosts = [
   { id: 1, imageUrl: 'https://i.pinimg.com/736x/22/44/21/2244217fa39ce3be3c6c0147b14e3be5.jpg', likes: 128 },
@@ -115,13 +115,10 @@ const Profile = () => {
     return <div className="text-red-500 flex justify-center items-center h-screen">{error || 'Không thể tải hồ sơ người dùng.'}</div>;
   }
 
-  function changeLikedColor(value) {
-    return (`absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-default  ${value ? 'color : pink' : ' '}`)
-  }
+  
   return (
     <>  <IsLogin />
       <div className="bg-white text-gray-800 min-h-screen p-6">
-
         {/* Header Profile */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">

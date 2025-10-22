@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import PostCard from './PostCard'; // Component này sẽ chứa giao diện của từng bài viết
+import PostCard from '../PostCard'; // Component này sẽ chứa giao diện của từng bài viết
 
 const Feed = () => {
     const [posts, setPosts] = useState([]);

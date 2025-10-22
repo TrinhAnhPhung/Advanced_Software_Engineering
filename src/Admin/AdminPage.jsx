@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fi';
 import { CgData } from "react-icons/cg";
 import { Link } from 'react-router-dom';
-import AddUserModal from '../Components/AddUserModal';
+import AddUserModal from '../Admin/AddUserModal';
 import { AnimatePresence } from 'framer-motion';
 
 // Initial dummy user data to match PostgreSQL structure

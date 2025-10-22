@@ -1,7 +1,7 @@
 // ChatLayout.jsx
 import React, { useState } from "react";
 import { FaUserCircle, FaBell, FaTimes } from "react-icons/fa";
-import IsLogin from "./IsLogin";
+import IsLogin from "../IsLogin";
 /**
  * Sidebar (left)
  */

@@ -3,9 +3,9 @@ import Sidebar from './Components/Sidebar'
 import TopCreators from './Components/TopCreators'
 import { Outlet } from 'react-router-dom'
 import { usePopup } from './Components/IsPopup'
-import { is } from 'date-fns/locale'
+
 const MainLayout = () => {
-  const { isPopup, setIsPopup } = usePopup();
+  const { isPopup } = usePopup();
   return (<>
     {
       isPopup ? (

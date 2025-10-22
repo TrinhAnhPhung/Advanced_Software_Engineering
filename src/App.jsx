@@ -4,16 +4,16 @@ import ProtectedRoute from './ProtectedRoute';
 
 // Layout & Main Components
 import MainLayout from './MainLayout';
-import Feed from './Components/Feed';
-import Explore from './Components/Explore';
-import People from './Components/People';
+import Feed from './Components/Sidebar/Feed';
+import Explore from './Components/Sidebar/Explore';
+import People from './Components/Sidebar/People';
 import Saved from './Components/Saved';
-import CreatePost from './Components/CreatePost';
-import Profile from './Components/Profile';
+import CreatePost from './Components/Sidebar/CreatePost';
+import Profile from './Components/Sidebar/Profile';
 import Editprofile from './Components/Editprofile';
-import Notification from './Components/notification';
+import Notification from './Components/Sidebar/Notification';
 import EditPostPage from './Components/EditPostPage';
-import ChatSettings from './Components/ChatModal';
+import ChatSettings from './Components/Sidebar/ChatModal';
 
 // Auth Components
 import Login from './Login/Login';

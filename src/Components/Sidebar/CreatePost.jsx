@@ -1,7 +1,7 @@
-import React, { use, useState, useEffect } from 'react';
+import React, {  useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import IsLogin from './IsLogin';
+import IsLogin from '../IsLogin';
 
 const CreatePost = () => {
     const [isDragging, setIsDragging] = useState(false);

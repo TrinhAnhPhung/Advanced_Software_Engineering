@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import IsLogin from './IsLogin';
+import IsLogin from '../IsLogin';
 
 // Helper function to format the timestamp
 const formatTime = (timestamp) => {
