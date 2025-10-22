@@ -1,5 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { FiSearch, FiMoreHorizontal } from 'react-icons/fi';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLockOpen } from "@fortawesome/free-solid-svg-icons";
 
 // Dữ liệu mẫu mới cho các tài khoản, chỉ một vài tài khoản bị 'Banned'
 const initialUsers = [
@@ -80,6 +83,32 @@ const BlockAccountTable = () => {
       setSelectedEmails(allEmails);
     }
   };
+  const Lockaccount = (emails) => {
+    const updatedUsers = users.map(user => {
+      if (emails.has(user.email)) {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        return { ...user, status: 'Banned', bandDate: formattedDate };
+      }
+      return user;
+    });
+    setUsers(updatedUsers);
+    setSelectedEmails(new Set()); // Clear selection after action
+    setActiveMenu(null);
+  };
+  const Unlockaccount = (emails) => {
+    const updatedUsers = users.map(user => {
+      if (emails.has(user.email)) {
+        return { ...user, status: 'Active', bandDate: null };
+      }
+      return user;
+    });
+    setUsers(updatedUsers);
+    setSelectedEmails(new Set());
+    setActiveMenu(null);
+
+  };
 
   // Hàm xử lý khi click vào checkbox của từng hàng
   const handleSelectOne = (email) => {
@@ -93,23 +122,34 @@ const BlockAccountTable = () => {
   };
 
   // Hàm xử lý hiển thị/ẩn menu hành động
-  const toggleMenu = (index) => {
-    setActiveMenu(activeMenu === index ? null : index);
-  };
+
 
   return (
     <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-      <div className="p-4 border-b">
+      <div className="p-4 border-b flex-1/30 flex items-center ">
         <div className="relative">
           <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search"
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-250 pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+
         </div>
+        <FontAwesomeIcon
+          icon={faLock}
+          className="text-red-600 mr-2 border border-red-600 rounded p-1 cursor-pointer ml-4"
+          onClick={() => Lockaccount(selectedEmails)}
+        />
+
+        <FontAwesomeIcon
+          icon={faLockOpen}
+          className="text-green-600 mr-2 border border-green-600 rounded p-1 cursor-pointer"
+          onClick={() => Unlockaccount(selectedEmails)}
+        />
+
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white text-sm">
@@ -150,30 +190,25 @@ const BlockAccountTable = () => {
                 <td className="p-4 text-gray-600">{user.role}</td>
                 <td className="p-4 text-gray-600">{user.bandDate || 'N/A'}</td>
                 <td className="p-4 relative">
-                  <button
-                    className="text-gray-500 hover:text-gray-800"
-                    onClick={() => toggleMenu(index)}
-                  >
-                    <FiMoreHorizontal size={20} />
-                  </button>
+                  {user.status === 'Banned' ? (
+                    <button
+                      onClick={() => handleUnban(user.email)}
+                      className="block px-4 py-2 text-sm text-gray-700 w-full text-left "
+                    >
+                      <FontAwesomeIcon icon={faLockOpen} className="text-green-600 mr-2" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleBan(user.email)}
+                      className="block px-4 py-2 text-sm text-gray-700 w-full text-left  text-red-600"
+                    >
+                      <FontAwesomeIcon icon={faLock} className="text-red-600 mr-2" />
+                    </button>
+                  )}
                   {activeMenu === index && (
                     <div className="absolute right-0 top-full mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-10">
                       <div className="py-1">
-                        {user.status === 'Banned' ? (
-                          <button
-                            onClick={() => handleUnban(user.email)}
-                            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
-                          >
-                            Unban User
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleBan(user.email)}
-                            className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100 text-red-600"
-                          >
-                            Ban User
-                          </button>
-                        )}
+
                       </div>
                     </div>
                   )}

@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'; // Giả sử bạn có component này
 
 const EditProfile = () => {
   // State để lưu thông tin từ API
-  const [userProfile, setUserProfile] = useState(null); 
+  const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -17,6 +17,7 @@ const EditProfile = () => {
 
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const linkBackend = import.meta.env.VITE_Link_backend;
 
   // 1. Fetch dữ liệu người dùng khi component được tải
   useEffect(() => {
@@ -29,7 +30,7 @@ const EditProfile = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/profile/info?email=${email}`);
+        const response = await fetch(`${linkBackend}/api/profile/info?email=${email}`);
         if (!response.ok) {
           throw new Error('Không thể tải dữ liệu hồ sơ.');
         }
@@ -86,7 +87,7 @@ const EditProfile = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/profile/update', {
+      const response = await fetch(`${linkBackend}/api/profile/update`, {
         method: 'PUT',
         body: formData, // Không cần set header 'Content-Type', browser sẽ tự động làm
       });
@@ -99,7 +100,7 @@ const EditProfile = () => {
 
       setSuccessMessage('Cập nhật hồ sơ thành công!');
       // Cập nhật lại ảnh preview với URL thật từ server
-      setPreviewImage(result.user.profile_picture_url); 
+      setPreviewImage(result.user.profile_picture_url);
       // Tùy chọn: chuyển hướng về trang profile sau 2 giây
       setTimeout(() => {
         navigate('/profile');
@@ -113,7 +114,7 @@ const EditProfile = () => {
   if (loading) {
     return <div>Đang tải...</div>;
   }
-  
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar activeItem="profile" /> {/* Giả sử Sidebar có prop này */}
@@ -128,11 +129,11 @@ const EditProfile = () => {
 
           {/* User Info Section */}
           <div className="flex items-center mb-8">
-             <img
-                src={previewImage || 'https://via.placeholder.com/150'}
-                alt="Profile Avatar"
-                className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-gray-300"
-              />
+            <img
+              src={previewImage || 'https://via.placeholder.com/150'}
+              alt="Profile Avatar"
+              className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-gray-300"
+            />
             <div className="flex-grow">
               <p className="text-lg font-semibold text-gray-800">@{userProfile?.username}</p>
               <button
@@ -182,7 +183,7 @@ const EditProfile = () => {
 
             {successMessage && <p className="text-green-600 text-sm mb-4 text-center">{successMessage}</p>}
             {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
-            
+
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full"

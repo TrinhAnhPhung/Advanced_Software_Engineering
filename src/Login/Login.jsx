@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import translations from "./Language/LoginLanguage.jsx";
-
+import ReCAPTCHA from "react-google-recaptcha";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -11,9 +11,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [language, setLanguage] = useState("vi");
   const navigate = useNavigate();
-
+  const siteKey = import.meta.env.VITE_Recapcha_site_key;
   const t = translations[language];
-
+  const [isVerrified, setIsVerrified] = useState(false);
+  const backendLink = import.meta.env.VITE_Link_backend;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -22,6 +23,12 @@ const Login = () => {
     }
     setError("");
   };
+
+  const EnableLogin = (token) => {
+    if (token) {
+      setIsVerrified(true);
+    }
+  }
 
   const validateForm = () => {
     const errors = {};
@@ -51,7 +58,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const response = await axios.post(`${backendLink}/api/auth/login`, formData);
 
       // ✅ Kiểm tra phản hồi từ server
       if (response.data && response.data.user && response.data.token) {
@@ -62,8 +69,8 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("email", user.email);
         localStorage.setItem("username", user.username);  // Lưu username vào localStorage
-         localStorage.setItem("id", user.id);
-        
+        localStorage.setItem("id", user.id);
+
 
 
         // ✅ Điều hướng theo role
@@ -119,9 +126,8 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder={t.phoneEmailUser}
-                  className={`w-full p-2 text-sm border rounded focus:outline-none ${
-                    validationErrors.email ? "border-red-500" : "border-gray-700"
-                  }`}
+                  className={`w-full p-2 text-sm border rounded focus:outline-none ${validationErrors.email ? "border-red-500" : "border-gray-700"
+                    }`}
                 />
                 {validationErrors.email && (
                   <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
@@ -134,9 +140,8 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder={t.password}
-                  className={`w-full p-2 text-sm border rounded focus:outline-none ${
-                    validationErrors.password ? "border-red-500" : "border-gray-700"
-                  }`}
+                  className={`w-full p-2 text-sm border rounded focus:outline-none ${validationErrors.password ? "border-red-500" : "border-gray-700"
+                    }`}
                 />
                 {formData.password && (
                   <button
@@ -153,11 +158,15 @@ const Login = () => {
               </div>
 
               {error && <p className="text-red-500 text-sm text-center mt-1">{error}</p>}
-
+              <ReCAPTCHA
+                sitekey={siteKey}
+                onChange={(value) => EnableLogin(value)}
+              />
               <button
                 type="submit"
+
                 className="w-full p-2 mt-4 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition disabled:opacity-50 cursor-pointer"
-                disabled={loading}
+                disabled={!isVerrified || loading}
               >
                 {loading ? "Đang đăng nhập..." : t.loginTitle}
               </button>
@@ -199,7 +208,7 @@ const Login = () => {
             onChange={handleLanguageChange}
             className="bg-white text-gray-500 text-xs focus:outline-none cursor-pointer"
           >
-            <option value="vi">Tiếng Việt</option>
+            <option value="vi">Tiếng Việt </option>
             <option value="en">English</option>
           </select>
           <span>{t.footer.copyright}</span>

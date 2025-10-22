@@ -15,7 +15,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
-
+  const linkBackend = import.meta.env.VITE_Link_backend;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -32,7 +32,7 @@ const Register = () => {
     try {
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${linkBackend}/api/auth/register`,
         formData
       );
       setSuccessMessage(response.data.message || "Đăng ký thành công!");
@@ -108,14 +108,14 @@ const Register = () => {
               placeholder="Mật khẩu"
               className="w-full px-3 py-2 rounded border border-gray-300 bg-gray-50 text-black placeholder-gray-400 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
             />
-            
+
             <div className="pt-2">
-                 <p className="text-xs text-center text-gray-500">
-                    Những người dùng dịch vụ của chúng tôi có thể đã tải thông tin liên hệ của bạn lên Instagram. <a href="#" className="text-blue-900">Tìm hiểu thêm</a>
-                </p>
-                 <p className="text-xs text-center text-gray-500 mt-2">
-                    Bằng cách đăng ký, bạn đồng ý với <a href="#" className="text-blue-900">Điều khoản</a>, <a href="#" className="text-blue-900">Chính sách quyền riêng tư</a> và <a href="#" className="text-blue-900">Chính sách cookie</a> của chúng tôi.
-                </p>
+              <p className="text-xs text-center text-gray-500">
+                Những người dùng dịch vụ của chúng tôi có thể đã tải thông tin liên hệ của bạn lên Instagram. <a href="#" className="text-blue-900">Tìm hiểu thêm</a>
+              </p>
+              <p className="text-xs text-center text-gray-500 mt-2">
+                Bằng cách đăng ký, bạn đồng ý với <a href="#" className="text-blue-900">Điều khoản</a>, <a href="#" className="text-blue-900">Chính sách quyền riêng tư</a> và <a href="#" className="text-blue-900">Chính sách cookie</a> của chúng tôi.
+              </p>
             </div>
 
 
@@ -143,22 +143,22 @@ const Register = () => {
         </div>
       </div>
 
-       {/* Footer */}
-       <footer className="text-center mt-10 p-4">
-            <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
-                <a href="#" className="text-xs text-gray-500">Giới thiệu</a>
-                <a href="#" className="text-xs text-gray-500">Việc làm</a>
-                <a href="#" className="text-xs text-gray-500">Trợ giúp</a>
-                <a href="#" className="text-xs text-gray-500">API</a>
-                <a href="#" className="text-xs text-gray-500">Quyền riêng tư</a>
-                <a href="#" className="text-xs text-gray-500">Điều khoản</a>
-                <a href="#" className="text-xs text-gray-500">Vị trí</a>
-            </div>
-            <div className="mt-4 text-xs text-gray-500">
-                <span>Tiếng Việt</span>
-                <span className="ml-4">© 2025 Starsocial from StarTeam</span>
-            </div>
-        </footer>
+      {/* Footer */}
+      <footer className="text-center mt-10 p-4">
+        <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
+          <a href="#" className="text-xs text-gray-500">Giới thiệu</a>
+          <a href="#" className="text-xs text-gray-500">Việc làm</a>
+          <a href="#" className="text-xs text-gray-500">Trợ giúp</a>
+          <a href="#" className="text-xs text-gray-500">API</a>
+          <a href="#" className="text-xs text-gray-500">Quyền riêng tư</a>
+          <a href="#" className="text-xs text-gray-500">Điều khoản</a>
+          <a href="#" className="text-xs text-gray-500">Vị trí</a>
+        </div>
+        <div className="mt-4 text-xs text-gray-500">
+          <span>Tiếng Việt</span>
+          <span className="ml-4">© 2025 Starsocial from StarTeam</span>
+        </div>
+      </footer>
     </div>
   );
 };

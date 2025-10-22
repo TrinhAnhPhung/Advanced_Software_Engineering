@@ -143,9 +143,9 @@ const Forgotpass = () => {
 
         {/* Hộp link "Quay lại đăng nhập" */}
         <div className="w-full max-w-sm mt-8 py-4 border-t border-gray-700 text-center">
-            <Link to="/login" className="font-semibold text-sm text-blue-400 hover:text-blue-300">
-                {t.backToLogin}
-            </Link>
+          <Link to="/login" className="font-semibold text-sm text-blue-400 hover:text-blue-300">
+            {t.backToLogin}
+          </Link>
         </div>
       </main>
 

@@ -2,9 +2,9 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
   user: 'postgres',
-  host: 'myserverhostingb.duckdns.org',
-  database: 'starsocial_temp',
-  password: '@Strong123',
+  host: 'localhost',
+  database: 'postgres',
+  password: '1234',
   port: 5432,
 });
 

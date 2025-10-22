@@ -13,6 +13,7 @@ import Profile from './Components/Profile';
 import Editprofile from './Components/Editprofile';
 import Notification from './Components/notification';
 import EditPostPage from './Components/EditPostPage';
+import ChatSettings from './Components/ChatModal';
 
 // Auth Components
 import Login from './Login/Login';
@@ -25,9 +26,10 @@ import ReportProcessorPage from './HandleReport/ReportProcessorDashboard';
 import Blockaccount from './HandleReport/Blockaccount';
 import SensitiveKeywordStatistics from './HandleReport/Sensitivekey';
 import ReportLayout from './HandleReport/ReportLayout';
+import { PopupProvider } from './Components/IsPopup';
 
 const App = () => {
-  return (
+  return (<PopupProvider>
     <Routes>
       {/* Auth routes */}
       <Route path="/Login" element={<Login />} />
@@ -70,8 +72,9 @@ const App = () => {
         <Route path="/saved" element={<Saved />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/edit-post/:postId" element={<EditPostPage />} />
+        <Route path="/messages" element={<ChatSettings />} />
       </Route>
-    </Routes>
+    </Routes></PopupProvider>
   );
 };
 
