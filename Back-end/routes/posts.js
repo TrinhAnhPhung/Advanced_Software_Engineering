@@ -17,10 +17,6 @@ const storage = multer.diskStorage({
     }
 });
 
-
-
-
-
 // Hàm kiểm tra loại file và kích thước file
 const fileFilter = (req, file, cb) => {
     // Kiểm tra loại file ảnh (chỉ chấp nhận .jpg, .jpeg, .png)
