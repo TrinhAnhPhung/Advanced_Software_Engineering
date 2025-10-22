@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from './Components/Sidebar'
+import Sidebar from './Components/Sidebar/Sidebar'
 import TopCreators from './Components/TopCreators'
 import { Outlet } from 'react-router-dom'
 import { usePopup } from './Components/IsPopup'

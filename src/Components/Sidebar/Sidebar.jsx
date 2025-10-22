@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { usePopup } from './IsPopup';
+import { usePopup } from '../IsPopup';
 
 const Sidebar = () => {
     const location = useLocation();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar'; // Giả sử bạn có component này
+import Sidebar from '../Components/Sidebar/Sidebar'; // Giả sử bạn có component này
 
 const EditProfile = () => {
   // State để lưu thông tin từ API

@@ -38,7 +38,6 @@ const App = () => {
 
       {/* Standalone pages */}
       <Route path="/editprofile" element={<Editprofile />} />
-      <Route path="/Notification" element={<Notification />} />
 
       {/* Admin route */}
       <Route
@@ -65,6 +64,7 @@ const App = () => {
 
       {/* App routes with MainLayout */}
       <Route element={<MainLayout />}>
+      <Route path="/Notification" element={<Notification />} />
         <Route path="/" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/explore" element={<Explore />} />
